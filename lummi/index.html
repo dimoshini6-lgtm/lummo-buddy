@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumaro Solutions</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ? INTRO VIDEO -->
+    <video id="introVideo" autoplay muted playsinline>
+        <source src="lumro video.mp4" type="video/mp4">
+    </video>
+
+    <!-- ? OUTRO VIDEO (HIDDEN UNTIL CHATBOT CLOSES) -->
+    <video id="outroVideo" style="display:none;" autoplay muted playsinline>
+        <source src="lumro video (1).mp4" type="video/mp4">
+    </video>
+
+    <!-- ? CHATBOT CONTAINER (HIDDEN UNTIL INTRO ENDS) -->
+    <div id="chatbotContainer" style="display:none;">
+        <script>
+            window.chtlConfig = {
+                chatbotId: "3734715535",
+                display: "fullscreen"
+            };
+        </script>
+
+        <script async data-id="3734715535" 
+            id="chtl-script" 
+            data-display="fullscreen" 
+            type="text/javascript" 
+            src="https://chatling.ai/js/embed.js">
+        </script>
+    </div>
+
+
+    <script>
+        const introVideo = document.getElementById("introVideo");
+        const outroVideo = document.getElementById("outroVideo");
+        const chatbotContainer = document.getElementById("chatbotContainer");
+
+        // ? After intro video ? show chatbot
+        introVideo.onended = () => {
+            introVideo.style.display = "none";
+            chatbotContainer.style.display = "block";
+        };
+
+        // ? When user closes Chatling ? play outro video
+        document.addEventListener("click", function(event) {
+            // Chatling's close button has class "chtl-close"
+            if (event.target.closest(".chtl-close")) {
+                chatbotContainer.style.display = "none";
+                outroVideo.style.display = "block";
+                outroVideo.play();
+            }
+        });
+    </script>
+
+</body>
+</html>
